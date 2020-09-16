@@ -48,9 +48,9 @@ function initializeSession() {
 
 // See the config.js file.
 if (API_KEY && TOKEN && SESSION_ID) {
-  apiKey = API_KEY;
-  sessionId = SESSION_ID;
-  token = TOKEN;
+  apiKey = '46923354';
+  sessionId = '1_MX40NjkyMzM1NH5-MTYwMDI5MzA2MzMxNH5GWDFVNk54dTR1WlFXMkUvclVYUVpmenB-fg';
+  token = 'T1==cGFydG5lcl9pZD00NjkyMzM1NCZzaWc9MWZmY2RhYTNmM2U1YzhiNzIzMTcyOGZlNmU0N2ZmMjZmNmY1ODE2YTpzZXNzaW9uX2lkPTFfTVg0ME5qa3lNek0xTkg1LU1UWXdNREk1TXpBMk16TXhOSDVHV0RGVk5rNTRkVFIxV2xGWE1rVXZjbFZZVVZwbWVuQi1mZyZjcmVhdGVfdGltZT0xNjAwMjkzMTAwJm5vbmNlPTAuMDI2NzIyNTkxNjU3OTQ1NjYmcm9sZT1wdWJsaXNoZXImZXhwaXJlX3RpbWU9MTYwMDg5ODE4OCZpbml0aWFsX2xheW91dF9jbGFzc19saXN0PQ==';
   initializeSession();
 } else if (SAMPLE_SERVER_BASE_URL) {
   // Make an Ajax request to get the OpenTok API key, session ID, and token from the server
