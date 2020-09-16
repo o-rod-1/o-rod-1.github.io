@@ -11,5 +11,5 @@ var SAMPLE_SERVER_BASE_URL = 'https://o-rod-1.github.io';
 // For test purposes, you can obtain these from https://tokbox.com/account.
 
 var API_KEY = '46923354';
-var SESSION_ID = '';
-var TOKEN = '';
+var SESSION_ID = '1_MX40NjkyMzM1NH5-MTYwMDI5MzA2MzMxNH5GWDFVNk54dTR1WlFXMkUvclVYUVpmenB-fg';
+var TOKEN = 'T1==cGFydG5lcl9pZD00NjkyMzM1NCZzaWc9MWZmY2RhYTNmM2U1YzhiNzIzMTcyOGZlNmU0N2ZmMjZmNmY1ODE2YTpzZXNzaW9uX2lkPTFfTVg0ME5qa3lNek0xTkg1LU1UWXdNREk1TXpBMk16TXhOSDVHV0RGVk5rNTRkVFIxV2xGWE1rVXZjbFZZVVZwbWVuQi1mZyZjcmVhdGVfdGltZT0xNjAwMjkzMTAwJm5vbmNlPTAuMDI2NzIyNTkxNjU3OTQ1NjYmcm9sZT1wdWJsaXNoZXImZXhwaXJlX3RpbWU9MTYwMDg5ODE4OCZpbml0aWFsX2xheW91dF9jbGFzc19saXN0PQ==';
