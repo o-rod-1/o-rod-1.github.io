@@ -6,8 +6,8 @@
     <title> OpenTok Getting Started </title>
     <link href="css/app.css" rel="stylesheet" type="text/css">
 
-    
-    <script src="https://cdn.temasys.com.sg/adapterjs/0.11.x/adapter.debug.js"></script>
+    <script src="https://static.opentok.com/v2/js/opentok.min.js"></script>
+    <script src="https://cdn.temasys.com.sg/adapterjs/0.11.x/adapter.screenshare.js"></script>
 
     <!-- Polyfill for fetch API so that we can fetch the sessionId and token in IE11 -->
     <script src="https://cdn.jsdelivr.net/npm/promise-polyfill@7/dist/polyfill.min.js" charset="utf-8"></script>
@@ -27,16 +27,6 @@
 
     <script type="text/javascript" src="js/config.js"></script>
     <script type="text/javascript" src="js/app.js"></script>
-    <script type="text/javascript">
- AdapterJS.webRTCReady(function(isUsingPlugin) {
-    // The WebRTC API is ready.
-    // isUsingPlugin: true if the WebRTC plugin is being used, false otherwise
-  console.log("plugin is ready");
-    getUserMedia(constraints, successCb, failCb);
-});       
-
-    </script>
-<script src="https://static.opentok.com/v2/js/opentok.min.js"></script>
 </body>
 
 </html>
