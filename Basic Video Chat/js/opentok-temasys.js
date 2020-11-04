@@ -5,7 +5,7 @@
  * Subject to the applicable Software Development Kit (SDK) License Agreement:
  * https://tokbox.com/support/sdk_license
  *
- * Date: Tue, 03 Nov 2020 21:51:44 GMT
+ * Date: Wed, 04 Nov 2020 15:46:49 GMT
  */(function webpackUniversalModuleDefinition(root,factory){if((typeof exports==="undefined"?"undefined":_typeof(exports))==='object'&&(typeof module==="undefined"?"undefined":_typeof(module))==='object')module.exports=factory();else if(typeof define==='function'&&define.amd)define([],factory);else if((typeof exports==="undefined"?"undefined":_typeof(exports))==='object')exports["OT"]=factory();else root["OT"]=factory();})(window,function(){return(/******/function(modules){// webpackBootstrap
 /******/ // The module cache
 /******/var installedModules={};/******/ /******/ // The require function
@@ -5931,92 +5931,92 @@ process.versions={};function noop(){}process.on=noop;process.addListener=noop;pr
 /***/},/***/"./node_modules/punycode/punycode.js":/*!*******************************************!*\
   !*** ./node_modules/punycode/punycode.js ***!
   \*******************************************/ /*! no static exports found */ /***/function node_modulesPunycodePunycodeJs(module,exports,__webpack_require__){/* WEBPACK VAR INJECTION */(function(module){var __WEBPACK_AMD_DEFINE_RESULT__;/*! https://mths.be/punycode v1.3.2 by @mathias */;(function(root){/** Detect free variables */var freeExports=true&&exports&&!exports.nodeType&&exports;var freeModule=true&&module&&!module.nodeType&&module;var freeGlobal=_typeof((typeof window==="undefined"?"undefined":_typeof(window))!==undefined?window:global)=='object'&&((typeof window==="undefined"?"undefined":_typeof(window))!==undefined?window:global);if(freeGlobal.global===freeGlobal||freeGlobal.window===freeGlobal||freeGlobal.self===freeGlobal){root=freeGlobal;}/**
-	 * The `punycode` object.
-	 * @name punycode
-	 * @type Object
-	 */var punycode,/** Highest positive signed 32-bit float value */maxInt=2147483647,// aka. 0x7FFFFFFF or 2^31-1
+   * The `punycode` object.
+   * @name punycode
+   * @type Object
+   */var punycode,/** Highest positive signed 32-bit float value */maxInt=2147483647,// aka. 0x7FFFFFFF or 2^31-1
 /** Bootstring parameters */base=36,tMin=1,tMax=26,skew=38,damp=700,initialBias=72,initialN=128,// 0x80
 delimiter='-',// '\x2D'
 /** Regular expressions */regexPunycode=/^xn--/,regexNonASCII=/[^\x20-\x7E]/,// unprintable ASCII chars + non-ASCII chars
 regexSeparators=/[\x2E\u3002\uFF0E\uFF61]/g,// RFC 3490 separators
 /** Error messages */errors={'overflow':'Overflow: input needs wider integers to process','not-basic':'Illegal input >= 0x80 (not a basic code point)','invalid-input':'Invalid input'},/** Convenience shortcuts */baseMinusTMin=base-tMin,floor=Math.floor,stringFromCharCode=String.fromCharCode,/** Temporary variable */key;/*--------------------------------------------------------------------------*/ /**
-	 * A generic error utility function.
-	 * @private
-	 * @param {String} type The error type.
-	 * @returns {Error} Throws a `RangeError` with the applicable error message.
-	 */function error(type){throw RangeError(errors[type]);}/**
-	 * A generic `Array#map` utility function.
-	 * @private
-	 * @param {Array} array The array to iterate over.
-	 * @param {Function} callback The function that gets called for every array
-	 * item.
-	 * @returns {Array} A new array of values returned by the callback function.
-	 */function map(array,fn){var length=array.length;var result=[];while(length--){result[length]=fn(array[length]);}return result;}/**
-	 * A simple `Array#map`-like wrapper to work with domain name strings or email
-	 * addresses.
-	 * @private
-	 * @param {String} domain The domain name or email address.
-	 * @param {Function} callback The function that gets called for every
-	 * character.
-	 * @returns {Array} A new string of characters returned by the callback
-	 * function.
-	 */function mapDomain(string,fn){var parts=string.split('@');var result='';if(parts.length>1){// In email addresses, only the domain name should be punycoded. Leave
+   * A generic error utility function.
+   * @private
+   * @param {String} type The error type.
+   * @returns {Error} Throws a `RangeError` with the applicable error message.
+   */function error(type){throw RangeError(errors[type]);}/**
+   * A generic `Array#map` utility function.
+   * @private
+   * @param {Array} array The array to iterate over.
+   * @param {Function} callback The function that gets called for every array
+   * item.
+   * @returns {Array} A new array of values returned by the callback function.
+   */function map(array,fn){var length=array.length;var result=[];while(length--){result[length]=fn(array[length]);}return result;}/**
+   * A simple `Array#map`-like wrapper to work with domain name strings or email
+   * addresses.
+   * @private
+   * @param {String} domain The domain name or email address.
+   * @param {Function} callback The function that gets called for every
+   * character.
+   * @returns {Array} A new string of characters returned by the callback
+   * function.
+   */function mapDomain(string,fn){var parts=string.split('@');var result='';if(parts.length>1){// In email addresses, only the domain name should be punycoded. Leave
 // the local part (i.e. everything up to `@`) intact.
 result=parts[0]+'@';string=parts[1];}// Avoid `split(regex)` for IE8 compatibility. See #17.
 string=string.replace(regexSeparators,'\x2E');var labels=string.split('.');var encoded=map(labels,fn).join('.');return result+encoded;}/**
-	 * Creates an array containing the numeric code points of each Unicode
-	 * character in the string. While JavaScript uses UCS-2 internally,
-	 * this function will convert a pair of surrogate halves (each of which
-	 * UCS-2 exposes as separate characters) into a single code point,
-	 * matching UTF-16.
-	 * @see `punycode.ucs2.encode`
-	 * @see <https://mathiasbynens.be/notes/javascript-encoding>
-	 * @memberOf punycode.ucs2
-	 * @name decode
-	 * @param {String} string The Unicode input string (UCS-2).
-	 * @returns {Array} The new array of code points.
-	 */function ucs2decode(string){var output=[],counter=0,length=string.length,value,extra;while(counter<length){value=string.charCodeAt(counter++);if(value>=0xD800&&value<=0xDBFF&&counter<length){// high surrogate, and there is a next character
+   * Creates an array containing the numeric code points of each Unicode
+   * character in the string. While JavaScript uses UCS-2 internally,
+   * this function will convert a pair of surrogate halves (each of which
+   * UCS-2 exposes as separate characters) into a single code point,
+   * matching UTF-16.
+   * @see `punycode.ucs2.encode`
+   * @see <https://mathiasbynens.be/notes/javascript-encoding>
+   * @memberOf punycode.ucs2
+   * @name decode
+   * @param {String} string The Unicode input string (UCS-2).
+   * @returns {Array} The new array of code points.
+   */function ucs2decode(string){var output=[],counter=0,length=string.length,value,extra;while(counter<length){value=string.charCodeAt(counter++);if(value>=0xD800&&value<=0xDBFF&&counter<length){// high surrogate, and there is a next character
 extra=string.charCodeAt(counter++);if((extra&0xFC00)==0xDC00){// low surrogate
 output.push(((value&0x3FF)<<10)+(extra&0x3FF)+0x10000);}else{// unmatched surrogate; only append this code unit, in case the next
 // code unit is the high surrogate of a surrogate pair
 output.push(value);counter--;}}else{output.push(value);}}return output;}/**
-	 * Creates a string based on an array of numeric code points.
-	 * @see `punycode.ucs2.decode`
-	 * @memberOf punycode.ucs2
-	 * @name encode
-	 * @param {Array} codePoints The array of numeric code points.
-	 * @returns {String} The new Unicode string (UCS-2).
-	 */function ucs2encode(array){return map(array,function(value){var output='';if(value>0xFFFF){value-=0x10000;output+=stringFromCharCode(value>>>10&0x3FF|0xD800);value=0xDC00|value&0x3FF;}output+=stringFromCharCode(value);return output;}).join('');}/**
-	 * Converts a basic code point into a digit/integer.
-	 * @see `digitToBasic()`
-	 * @private
-	 * @param {Number} codePoint The basic numeric code point value.
-	 * @returns {Number} The numeric value of a basic code point (for use in
-	 * representing integers) in the range `0` to `base - 1`, or `base` if
-	 * the code point does not represent a value.
-	 */function basicToDigit(codePoint){if(codePoint-48<10){return codePoint-22;}if(codePoint-65<26){return codePoint-65;}if(codePoint-97<26){return codePoint-97;}return base;}/**
-	 * Converts a digit/integer into a basic code point.
-	 * @see `basicToDigit()`
-	 * @private
-	 * @param {Number} digit The numeric value of a basic code point.
-	 * @returns {Number} The basic code point whose value (when used for
-	 * representing integers) is `digit`, which needs to be in the range
-	 * `0` to `base - 1`. If `flag` is non-zero, the uppercase form is
-	 * used; else, the lowercase form is used. The behavior is undefined
-	 * if `flag` is non-zero and `digit` has no uppercase form.
-	 */function digitToBasic(digit,flag){//  0..25 map to ASCII a..z or A..Z
+   * Creates a string based on an array of numeric code points.
+   * @see `punycode.ucs2.decode`
+   * @memberOf punycode.ucs2
+   * @name encode
+   * @param {Array} codePoints The array of numeric code points.
+   * @returns {String} The new Unicode string (UCS-2).
+   */function ucs2encode(array){return map(array,function(value){var output='';if(value>0xFFFF){value-=0x10000;output+=stringFromCharCode(value>>>10&0x3FF|0xD800);value=0xDC00|value&0x3FF;}output+=stringFromCharCode(value);return output;}).join('');}/**
+   * Converts a basic code point into a digit/integer.
+   * @see `digitToBasic()`
+   * @private
+   * @param {Number} codePoint The basic numeric code point value.
+   * @returns {Number} The numeric value of a basic code point (for use in
+   * representing integers) in the range `0` to `base - 1`, or `base` if
+   * the code point does not represent a value.
+   */function basicToDigit(codePoint){if(codePoint-48<10){return codePoint-22;}if(codePoint-65<26){return codePoint-65;}if(codePoint-97<26){return codePoint-97;}return base;}/**
+   * Converts a digit/integer into a basic code point.
+   * @see `basicToDigit()`
+   * @private
+   * @param {Number} digit The numeric value of a basic code point.
+   * @returns {Number} The basic code point whose value (when used for
+   * representing integers) is `digit`, which needs to be in the range
+   * `0` to `base - 1`. If `flag` is non-zero, the uppercase form is
+   * used; else, the lowercase form is used. The behavior is undefined
+   * if `flag` is non-zero and `digit` has no uppercase form.
+   */function digitToBasic(digit,flag){//  0..25 map to ASCII a..z or A..Z
 // 26..35 map to ASCII 0..9
 return digit+22+75*(digit<26)-((flag!=0)<<5);}/**
-	 * Bias adaptation function as per section 3.4 of RFC 3492.
-	 * http://tools.ietf.org/html/rfc3492#section-3.4
-	 * @private
-	 */function adapt(delta,numPoints,firstTime){var k=0;delta=firstTime?floor(delta/damp):delta>>1;delta+=floor(delta/numPoints);for(;/* no initialization */delta>baseMinusTMin*tMax>>1;k+=base){delta=floor(delta/baseMinusTMin);}return floor(k+(baseMinusTMin+1)*delta/(delta+skew));}/**
-	 * Converts a Punycode string of ASCII-only symbols to a string of Unicode
-	 * symbols.
-	 * @memberOf punycode
-	 * @param {String} input The Punycode string of ASCII-only symbols.
-	 * @returns {String} The resulting string of Unicode symbols.
-	 */function decode(input){// Don't use UCS-2
+   * Bias adaptation function as per section 3.4 of RFC 3492.
+   * http://tools.ietf.org/html/rfc3492#section-3.4
+   * @private
+   */function adapt(delta,numPoints,firstTime){var k=0;delta=firstTime?floor(delta/damp):delta>>1;delta+=floor(delta/numPoints);for(;/* no initialization */delta>baseMinusTMin*tMax>>1;k+=base){delta=floor(delta/baseMinusTMin);}return floor(k+(baseMinusTMin+1)*delta/(delta+skew));}/**
+   * Converts a Punycode string of ASCII-only symbols to a string of Unicode
+   * symbols.
+   * @memberOf punycode
+   * @param {String} input The Punycode string of ASCII-only symbols.
+   * @returns {String} The resulting string of Unicode symbols.
+   */function decode(input){// Don't use UCS-2
 var output=[],inputLength=input.length,out,i=0,n=initialN,bias=initialBias,basic,j,index,oldi,w,k,digit,t,/** Cached calculation results */baseMinusT;// Handle the basic code points: let `basic` be the number of input code
 // points before the last delimiter, or `0` if there is none, then copy
 // the first basic code points to the output.
@@ -6032,12 +6032,12 @@ for(oldi=i,w=1,k=base;;/* no condition */k+=base){if(index>=inputLength){error('
 // incrementing `n` each time, so we'll fix that now:
 if(floor(i/out)>maxInt-n){error('overflow');}n+=floor(i/out);i%=out;// Insert `n` at position `i` of the output
 output.splice(i++,0,n);}return ucs2encode(output);}/**
-	 * Converts a string of Unicode symbols (e.g. a domain name label) to a
-	 * Punycode string of ASCII-only symbols.
-	 * @memberOf punycode
-	 * @param {String} input The string of Unicode symbols.
-	 * @returns {String} The resulting Punycode string of ASCII-only symbols.
-	 */function encode(input){var n,delta,handledCPCount,basicLength,bias,j,m,q,k,t,currentValue,output=[],/** `inputLength` will hold the number of code points in `input`. */inputLength,/** Cached calculation results */handledCPCountPlusOne,baseMinusT,qMinusT;// Convert the input in UCS-2 to Unicode
+   * Converts a string of Unicode symbols (e.g. a domain name label) to a
+   * Punycode string of ASCII-only symbols.
+   * @memberOf punycode
+   * @param {String} input The string of Unicode symbols.
+   * @returns {String} The resulting Punycode string of ASCII-only symbols.
+   */function encode(input){var n,delta,handledCPCount,basicLength,bias,j,m,q,k,t,currentValue,output=[],/** `inputLength` will hold the number of code points in `input`. */inputLength,/** Cached calculation results */handledCPCountPlusOne,baseMinusT,qMinusT;// Convert the input in UCS-2 to Unicode
 input=ucs2decode(input);// Cache the length
 inputLength=input.length;// Initialize the state
 n=initialN;delta=0;bias=initialBias;// Handle the basic code points
@@ -6051,36 +6051,36 @@ for(m=maxInt,j=0;j<inputLength;++j){currentValue=input[j];if(currentValue>=n&&cu
 // but guard against overflow
 handledCPCountPlusOne=handledCPCount+1;if(m-n>floor((maxInt-delta)/handledCPCountPlusOne)){error('overflow');}delta+=(m-n)*handledCPCountPlusOne;n=m;for(j=0;j<inputLength;++j){currentValue=input[j];if(currentValue<n&&++delta>maxInt){error('overflow');}if(currentValue==n){// Represent delta as a generalized variable-length integer
 for(q=delta,k=base;;/* no condition */k+=base){t=k<=bias?tMin:k>=bias+tMax?tMax:k-bias;if(q<t){break;}qMinusT=q-t;baseMinusT=base-t;output.push(stringFromCharCode(digitToBasic(t+qMinusT%baseMinusT,0)));q=floor(qMinusT/baseMinusT);}output.push(stringFromCharCode(digitToBasic(q,0)));bias=adapt(delta,handledCPCountPlusOne,handledCPCount==basicLength);delta=0;++handledCPCount;}}++delta;++n;}return output.join('');}/**
-	 * Converts a Punycode string representing a domain name or an email address
-	 * to Unicode. Only the Punycoded parts of the input will be converted, i.e.
-	 * it doesn't matter if you call it on a string that has already been
-	 * converted to Unicode.
-	 * @memberOf punycode
-	 * @param {String} input The Punycoded domain name or email address to
-	 * convert to Unicode.
-	 * @returns {String} The Unicode representation of the given Punycode
-	 * string.
-	 */function toUnicode(input){return mapDomain(input,function(string){return regexPunycode.test(string)?decode(string.slice(4).toLowerCase()):string;});}/**
-	 * Converts a Unicode string representing a domain name or an email address to
-	 * Punycode. Only the non-ASCII parts of the domain name will be converted,
-	 * i.e. it doesn't matter if you call it with a domain that's already in
-	 * ASCII.
-	 * @memberOf punycode
-	 * @param {String} input The domain name or email address to convert, as a
-	 * Unicode string.
-	 * @returns {String} The Punycode representation of the given domain name or
-	 * email address.
-	 */function toASCII(input){return mapDomain(input,function(string){return regexNonASCII.test(string)?'xn--'+encode(string):string;});}/*--------------------------------------------------------------------------*/ /** Define the public API */punycode={/**
-		 * A string representing the current Punycode.js version number.
-		 * @memberOf punycode
-		 * @type String
-		 */'version':'1.3.2',/**
-		 * An object of methods to convert from JavaScript's internal character
-		 * representation (UCS-2) to Unicode code points, and back.
-		 * @see <https://mathiasbynens.be/notes/javascript-encoding>
-		 * @memberOf punycode
-		 * @type Object
-		 */'ucs2':{'decode':ucs2decode,'encode':ucs2encode},'decode':decode,'encode':encode,'toASCII':toASCII,'toUnicode':toUnicode};/** Expose `punycode` */ // Some AMD build optimizers, like r.js, check for specific condition patterns
+   * Converts a Punycode string representing a domain name or an email address
+   * to Unicode. Only the Punycoded parts of the input will be converted, i.e.
+   * it doesn't matter if you call it on a string that has already been
+   * converted to Unicode.
+   * @memberOf punycode
+   * @param {String} input The Punycoded domain name or email address to
+   * convert to Unicode.
+   * @returns {String} The Unicode representation of the given Punycode
+   * string.
+   */function toUnicode(input){return mapDomain(input,function(string){return regexPunycode.test(string)?decode(string.slice(4).toLowerCase()):string;});}/**
+   * Converts a Unicode string representing a domain name or an email address to
+   * Punycode. Only the non-ASCII parts of the domain name will be converted,
+   * i.e. it doesn't matter if you call it with a domain that's already in
+   * ASCII.
+   * @memberOf punycode
+   * @param {String} input The domain name or email address to convert, as a
+   * Unicode string.
+   * @returns {String} The Punycode representation of the given domain name or
+   * email address.
+   */function toASCII(input){return mapDomain(input,function(string){return regexNonASCII.test(string)?'xn--'+encode(string):string;});}/*--------------------------------------------------------------------------*/ /** Define the public API */punycode={/**
+     * A string representing the current Punycode.js version number.
+     * @memberOf punycode
+     * @type String
+     */'version':'1.3.2',/**
+     * An object of methods to convert from JavaScript's internal character
+     * representation (UCS-2) to Unicode code points, and back.
+     * @see <https://mathiasbynens.be/notes/javascript-encoding>
+     * @memberOf punycode
+     * @type Object
+     */'ucs2':{'decode':ucs2decode,'encode':ucs2encode},'decode':decode,'encode':encode,'toASCII':toASCII,'toUnicode':toUnicode};/** Expose `punycode` */ // Some AMD build optimizers, like r.js, check for specific condition patterns
 // like the following:
 if(true){!(__WEBPACK_AMD_DEFINE_RESULT__=function(){return punycode;}.call(exports,__webpack_require__,exports,module),__WEBPACK_AMD_DEFINE_RESULT__!==undefined&&(module.exports=__WEBPACK_AMD_DEFINE_RESULT__));}else{}})(this);/* WEBPACK VAR INJECTION */}).call(this,__webpack_require__(/*! ./../webpack/buildin/module.js */"./node_modules/webpack/buildin/module.js")(module));/***/},/***/"./node_modules/querystring-es3/decode.js":/*!************************************************!*\
   !*** ./node_modules/querystring-es3/decode.js ***!
@@ -7000,8 +7000,8 @@ stack:value.stack,message:value.message,name:value.name};for(var i in value){if(
 */function rawMD5(s){return rstrMD5(str2rstrUTF8(s));}function hexMD5(s){return rstr2hex(rawMD5(s));}function rawHMACMD5(k,d){return rstrHMACMD5(str2rstrUTF8(k),str2rstrUTF8(d));}function hexHMACMD5(k,d){return rstr2hex(rawHMACMD5(k,d));}function md5(string,key,raw){if(!key){if(!raw){return hexMD5(string);}return rawMD5(string);}if(!raw){return hexHMACMD5(key,string);}return rawHMACMD5(key,string);}module.exports=md5;/***/},/***/"./node_modules/style-loader/lib/addStyles.js":/*!****************************************************!*\
   !*** ./node_modules/style-loader/lib/addStyles.js ***!
   \****************************************************/ /*! no static exports found */ /***/function node_modulesStyleLoaderLibAddStylesJs(module,exports,__webpack_require__){/*
-	MIT License http://www.opensource.org/licenses/mit-license.php
-	Author Tobias Koppers @sokra
+  MIT License http://www.opensource.org/licenses/mit-license.php
+  Author Tobias Koppers @sokra
 */var stylesInDom={};var memoize=function memoize(fn){var memo;return function(){if(typeof memo==="undefined")memo=fn.apply(this,arguments);return memo;};};var isOldIE=memoize(function(){// Test for IE <= 9 as proposed by Browserhacks
 // @see http://browserhacks.com/#hack-e71d8692f65334173fee715c222cb805
 // Tests for existence of standard globals is to allow style-loader
@@ -7026,11 +7026,11 @@ obj.css=result;}else{// If the transform function returns a falsy value, don't a
 // This allows conditional loading of css
 return function(){// noop
 };}}if(options.singleton){var styleIndex=singletonCounter++;style=singleton||(singleton=createStyleElement(options));update=applyToSingletonTag.bind(null,style,styleIndex,false);remove=applyToSingletonTag.bind(null,style,styleIndex,true);}else if(obj.sourceMap&&typeof URL==="function"&&typeof URL.createObjectURL==="function"&&typeof URL.revokeObjectURL==="function"&&typeof Blob==="function"&&typeof btoa==="function"){style=createLinkElement(options);update=updateLink.bind(null,style,options);remove=function remove(){removeStyleElement(style);if(style.href)URL.revokeObjectURL(style.href);};}else{style=createStyleElement(options);update=applyToTag.bind(null,style);remove=function remove(){removeStyleElement(style);};}update(obj);return function updateStyle(newObj){if(newObj){if(newObj.css===obj.css&&newObj.media===obj.media&&newObj.sourceMap===obj.sourceMap){return;}update(obj=newObj);}else{remove();}};}var replaceText=function(){var textStore=[];return function(index,replacement){textStore[index]=replacement;return textStore.filter(Boolean).join('\n');};}();function applyToSingletonTag(style,index,remove,obj){var css=remove?"":obj.css;if(style.styleSheet){style.styleSheet.cssText=replaceText(index,css);}else{var cssNode=document.createTextNode(css);var childNodes=style.childNodes;if(childNodes[index])style.removeChild(childNodes[index]);if(childNodes.length){style.insertBefore(cssNode,childNodes[index]);}else{style.appendChild(cssNode);}}}function applyToTag(style,obj){var css=obj.css;var media=obj.media;if(media){style.setAttribute("media",media);}if(style.styleSheet){style.styleSheet.cssText=css;}else{while(style.firstChild){style.removeChild(style.firstChild);}style.appendChild(document.createTextNode(css));}}function updateLink(link,options,obj){var css=obj.css;var sourceMap=obj.sourceMap;/*
-		If convertToAbsoluteUrls isn't defined, but sourcemaps are enabled
-		and there is no publicPath defined then lets turn convertToAbsoluteUrls
-		on by default.  Otherwise default to the convertToAbsoluteUrls option
-		directly
-	*/var autoFixUrls=options.convertToAbsoluteUrls===undefined&&sourceMap;if(options.convertToAbsoluteUrls||autoFixUrls){css=fixUrls(css);}if(sourceMap){// http://stackoverflow.com/a/26603875
+    If convertToAbsoluteUrls isn't defined, but sourcemaps are enabled
+    and there is no publicPath defined then lets turn convertToAbsoluteUrls
+    on by default.  Otherwise default to the convertToAbsoluteUrls option
+    directly
+  */var autoFixUrls=options.convertToAbsoluteUrls===undefined&&sourceMap;if(options.convertToAbsoluteUrls||autoFixUrls){css=fixUrls(css);}if(sourceMap){// http://stackoverflow.com/a/26603875
 css+="\n/*# sourceMappingURL=data:application/json;base64,"+btoa(unescape(encodeURIComponent(JSON.stringify(sourceMap))))+" */";}var blob=new Blob([css],{type:"text/css"});var oldSrc=link.href;link.href=URL.createObjectURL(blob);if(oldSrc)URL.revokeObjectURL(oldSrc);}/***/},/***/"./node_modules/style-loader/lib/urls.js":/*!***********************************************!*\
   !*** ./node_modules/style-loader/lib/urls.js ***!
   \***********************************************/ /*! no static exports found */ /***/function node_modulesStyleLoaderLibUrlsJs(module,exports){/**
@@ -7048,30 +7048,30 @@ css+="\n/*# sourceMappingURL=data:application/json;base64,"+btoa(unescape(encode
 var location=typeof window!=="undefined"&&window.location;if(!location){throw new Error("fixUrls requires window.location");}// blank or null?
 if(!css||typeof css!=="string"){return css;}var baseUrl=location.protocol+"//"+location.host;var currentDir=baseUrl+location.pathname.replace(/\/[^\/]*$/,"/");// convert each url(...)
 /*
-	This regular expression is just a way to recursively match brackets within
-	a string.
+  This regular expression is just a way to recursively match brackets within
+  a string.
 
-	 /url\s*\(  = Match on the word "url" with any whitespace after it and then a parens
-	   (  = Start a capturing group
-	     (?:  = Start a non-capturing group
-	         [^)(]  = Match anything that isn't a parentheses
-	         |  = OR
-	         \(  = Match a start parentheses
-	             (?:  = Start another non-capturing groups
-	                 [^)(]+  = Match anything that isn't a parentheses
-	                 |  = OR
-	                 \(  = Match a start parentheses
-	                     [^)(]*  = Match anything that isn't a parentheses
-	                 \)  = Match a end parentheses
-	             )  = End Group
+   /url\s*\(  = Match on the word "url" with any whitespace after it and then a parens
+     (  = Start a capturing group
+       (?:  = Start a non-capturing group
+           [^)(]  = Match anything that isn't a parentheses
+           |  = OR
+           \(  = Match a start parentheses
+               (?:  = Start another non-capturing groups
+                   [^)(]+  = Match anything that isn't a parentheses
+                   |  = OR
+                   \(  = Match a start parentheses
+                       [^)(]*  = Match anything that isn't a parentheses
+                   \)  = Match a end parentheses
+               )  = End Group
               *\) = Match anything and then a close parens
           )  = Close non-capturing group
           *  = Match anything
        )  = Close capturing group
-	 \)  = Match a close parens
+   \)  = Match a close parens
 
-	 /gi  = Get all matches, not the first.  Be case insensitive.
-	 */var fixedCss=css.replace(/url\s*\(((?:[^)(]|\((?:[^)(]+|\([^)(]*\))*\))*)\)/gi,function(fullMatch,origUrl){// strip quotes (if they exist)
+   /gi  = Get all matches, not the first.  Be case insensitive.
+   */var fixedCss=css.replace(/url\s*\(((?:[^)(]|\((?:[^)(]+|\([^)(]*\))*\))*)\)/gi,function(fullMatch,origUrl){// strip quotes (if they exist)
 var unquotedOrigUrl=origUrl.trim().replace(/^"(.*)"$/,function(o,$1){return $1;}).replace(/^'(.*)'$/,function(o,$1){return $1;});// already a full url? no change
 if(/^(#|data:|http:\/\/|https:\/\/|file:\/\/\/|\s*$)/i.test(unquotedOrigUrl)){return fullMatch;}// convert the url to a full url
 var newUrl;if(unquotedOrigUrl.indexOf("//")===0){//TODO: should we add protocol?
@@ -8208,7 +8208,7 @@ callstack.shift();callstack.shift();info.stack=callstack;errLocation=/@(.+?):([0
  * @property {String} websiteURL Used to construct urls to the TokBox website
  * @property {String} loggingURL Where to send analytical events
  * @property {String} apiURL The API to talk to (Anvil)
-*/ /** @type builtInConfig */var builtInConfig=cloneDeep({"version":"v2.18.2","buildHash":"431a6ca92","minimumVersion":{"firefox":52,"chrome":49},"debug":true,"websiteURL":"http://tbdev.tokbox.com","loggingURL":"https://hlg-dev.tokbox.com/qa","apiURL":"https://anvil-tbdev.opentok.com","sentryDSN":"https://40bf769a2f474b2a8ef66d2809c7cfe0@sentry.io/104064"});var whitelistAllowedRuntimeProperties=pick(['apiURL','assetURL','cdnURL','enableErrorReporting','sessionInfoOverrides','loggingURL']);var liveConfigMap={apiUrl:'apiURL',loggingUrl:'loggingURL'};var normalizeLiveConfig=mapKeys(function(key){return liveConfigMap[key];});function staticConfigFactory(_temp){var _ref=_temp===void 0?{}:_temp,_ref$axios=_ref.axios,axios=_ref$axios===void 0?defaultAxios:_ref$axios;/**
+*/ /** @type builtInConfig */var builtInConfig=cloneDeep({"version":"v2.18.2","buildHash":"431a6ca92","minimumVersion":{"firefox":52,"chrome":49},"debug":true,"websiteURL":"http://www.tokbox.com","configURL":"https://config.opentok.com","ipWhitelistConfigURL":"https://config-enterprise.opentok.com","loggingURL":"https://hlg.tokbox.com/localhost","apiURL":"https://anvil.opentok.com","sentryDSN":"https://40bf769a2f474b2a8ef66d2809c7cfe0@sentry.io/104064"});var whitelistAllowedRuntimeProperties=pick(['apiURL','assetURL','cdnURL','enableErrorReporting','sessionInfoOverrides','loggingURL']);var liveConfigMap={apiUrl:'apiURL',loggingUrl:'loggingURL'};var normalizeLiveConfig=mapKeys(function(key){return liveConfigMap[key];});function staticConfigFactory(_temp){var _ref=_temp===void 0?{}:_temp,_ref$axios=_ref.axios,axios=_ref$axios===void 0?defaultAxios:_ref$axios;/**
    * @class StaticConfig
    */var StaticConfig=/*#__PURE__*/function(){StaticConfig.onlyLocal=function onlyLocal(){var runtimeProperties=cloneDeep(((typeof window==="undefined"?"undefined":_typeof(window))!==undefined?window:global).OTProperties);return new StaticConfig((0,_extends2.default)({},builtInConfig,whitelistAllowedRuntimeProperties(runtimeProperties)));}/**
      * Construct a StaticConfig instance with baked in, runtime, and live configuration
